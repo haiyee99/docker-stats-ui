@@ -23,8 +23,11 @@ _style = InlineStyleSheet(
         display: inline-block;
         height: 25px;
         width: 25px;
+        border-radius: 5px;
+        margin-left: -5px;
         background-color: #eee;
         vertical-align: middle;
+        transition: background-color 0.15s
     }
     .container:hover input ~ .checkmark {
         background-color: #ccc;
@@ -40,7 +43,7 @@ _style = InlineStyleSheet(
     .container input:checked ~ .checkmark:after {
         display: block;
     }
-    .container .checkmark:after {
+    /*.container .checkmark:after {
         left: 9px;
         top: 5px;
         width: 7px;
@@ -50,7 +53,7 @@ _style = InlineStyleSheet(
         -webkit-transform: rotate(45deg);
         -ms-transform: rotate(45deg);
         transform: rotate(45deg);
-    }
+    }*/
     .container .label {
         display: inline-block;
         margin-left: 7.5px;

@@ -37,147 +37,48 @@ DATA = {
 }
 
 
-def create_container_element(name):
-    def callback():
-        nonlocal button, name
-        global DATA, line_cpu, line_mem
+def create_container_element(label):
+    # def callback():
+    #     nonlocal button, name
+    #     global DATA, line_cpu, line_mem
 
-        line_cpu.data_source.data = DATA[name]["cpu"]
-        circle_cpu.data_source.data = DATA[name]["cpu"]
-        line_mem.data_source.data = DATA[name]["mem"]
+    #     line_cpu.data_source.data = DATA[name]["cpu"]
+    #     circle_cpu.data_source.data = DATA[name]["cpu"]
+    #     line_mem.data_source.data = DATA[name]["mem"]
 
-    style = InlineStyleSheet(
-        css="""
-        .bk-btn {
-            font-family: Raleway;
-            padding: 10px 0;
-        }"""
-    )
-    button = Button(
-        label=name,
-        button_type="primary",
-        stylesheets=[style],
-        styles={"width": "100%", "margin": "5px 0"},
-    )
-    button.on_click(callback)
+    cbox = Checkbox(label=label)
+    # cbox.on_click(callback)
 
-    return button
+    return cbox
 
 
 # Components
 cmp_containers = column(
     width=300,
     sizing_mode="stretch_height",
-    styles={"padding": "1% 0", "overflow-y": "scroll"},
+    styles={"padding": "1% 2.5%", "overflow-y": "scroll"},
 )
 cmp_containers_search = AutocompleteInput(
     completions=["hello", "world", "lorem", "ipsum", "dolor", "sit", "amet"],
     max_completions=10,
     min_characters=2,
     case_sensitive=False,
-    styles={"width": "85%", "margin": "5px auto"},
+    styles={"width": "100%", "margin": "7.5px auto"},
 )
 cmp_containers_list = column(
     sizing_mode="stretch_height",
-    styles={"width": "85%", "margin": "5px auto"},
+    styles={"width": "100%"},
 )
 
-# style_cbtn = InlineStyleSheet(css="""label input {size: 10px}""")
-# cbtn = CheckboxGroup(labels=["a", "b", "c"], stylesheets=[style_cbtn])
-
-# style_checkbox = InlineStyleSheet(
-#     css="""
-#     .container {
-#         display: block;
-#         position: relative;
-#         cursor: pointer;
-#         -webkit-user-select: none;
-#         -moz-user-select: none;
-#         -ms-user-select: none;
-#         user-select: none;
-#     }
-#     .container input {
-#         position: absolute;
-#         cursor: pointer;
-#         opacity: 0;
-#         height: 0;
-#         width: 0;
-#     }
-#     .checkmark {
-#         position: relative;
-#         display: inline-block;
-#         height: 25px;
-#         width: 25px;
-#         background-color: #eee;
-#         vertical-align: middle;
-#     }
-#     .container:hover input ~ .checkmark {
-#         background-color: #ccc;
-#     }
-#     .container input:checked ~ .checkmark {
-#         background-color: #2196F3;
-#     }
-#     .checkmark:after {
-#         content: "";
-#         position: absolute;
-#         display: none;
-#     }
-#     .container input:checked ~ .checkmark:after {
-#         display: block;
-#     }
-#     .container .checkmark:after {
-#         left: 9px;
-#         top: 5px;
-#         width: 7px;
-#         height: 14px;
-#         border: solid white;
-#         border-width: 0 3px 3px 0;
-#         -webkit-transform: rotate(45deg);
-#         -ms-transform: rotate(45deg);
-#         transform: rotate(45deg);
-#     }
-#     .container .label {
-#         display: inline-block;
-#         margin-left: 7.5px;
-#         vertical-align: middle;
-#         font-size: 16px;
-#         font-family: Raleway;
-#         cursor: pointer;
-#     }
-#     """
-# )
-# checkbox_div = Div(
-#     text="""
-# <label class="container">
-#     <input type="checkbox" id="checkbox" name="checkbox">
-#     <span class="checkmark"></span>
-#     <label class="label" for="checkbox">Option 1</label>
-# </label>
-# """,
-#     stylesheets=[style_checkbox],
-# )
-# checkbox_div2 = Div(
-#     text="""
-# <label class="container">
-#     <input type="checkbox" id="checkbox" name="checkbox">
-#     <span class="checkmark"></span>
-#     <label class="label" for="checkbox">Option 2</label>
-# </label>
-# """,
-#     stylesheets=[style_checkbox],
-# )
-
-cb = Checkbox(label="container-id-1")
-cb2 = Checkbox(label="container-id-2")
-
 cmp_containers.children.append(cmp_containers_search)
-cmp_containers.children.append(cb)
-# cmp_containers.children.append(cb2)
 cmp_containers.children.append(cmp_containers_list)
 
-for i in range(10):
-    cmp_containers_list.children.append(create_container_element("container-id-1"))
-    cmp_containers_list.children.append(create_container_element("container-id-2"))
+for i in range(2):
+    cmp_containers_list.children.append(create_container_element(f"container-id-{i+1}"))
+
+# for i in range(10):
+# cmp_containers_list.children.append(create_container_element("container-id-1"))
+# cmp_containers_list.children.append(create_container_element("container-id-2"))
 
 
 # Create the middle plots
@@ -206,7 +107,9 @@ middle_container = column(
 )
 
 # Create the right container
+log = Div(text="None")
 right_container = column(sizing_mode="stretch_height", styles={"width": "14%"})
+right_container.children.append(log)
 # right_container.children.append(
 #     Div(
 #         width=320,
