@@ -1,1 +1,1 @@
-from .checkbox import Checkbox
+from .checkbox import MyCheckbox

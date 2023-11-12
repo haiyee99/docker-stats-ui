@@ -1,16 +1,10 @@
 from bokeh.io import curdoc
 from bokeh.layouts import column, row
-from bokeh.models import (
-    Div,
-    Button,
-    InlineStyleSheet,
-    AutocompleteInput,
-    CheckboxGroup,
-)
+from bokeh.models import Div, AutocompleteInput
 from bokeh.plotting import figure
 
 import styles
-from components import Checkbox
+from components import MyCheckbox
 
 
 DATA = {
@@ -38,16 +32,21 @@ DATA = {
 
 
 def create_container_element(label):
-    # def callback():
-    #     nonlocal button, name
-    #     global DATA, line_cpu, line_mem
+    def callback(attr, old, new):
+        # nonlocal button, name
+        # global DATA, line_cpu, line_mem
 
-    #     line_cpu.data_source.data = DATA[name]["cpu"]
-    #     circle_cpu.data_source.data = DATA[name]["cpu"]
-    #     line_mem.data_source.data = DATA[name]["mem"]
+        # line_cpu.data_source.data = DATA[name]["cpu"]
+        # circle_cpu.data_source.data = DATA[name]["cpu"]
+        # line_mem.data_source.data = DATA[name]["mem"]
+        global log
 
-    cbox = Checkbox(label=label)
-    # cbox.on_click(callback)
+        print(attr, old, new)
+
+        log.text = "clicked!"
+
+    cbox = MyCheckbox(label=label)
+    cbox.on_change("active", callback)
 
     return cbox
 
